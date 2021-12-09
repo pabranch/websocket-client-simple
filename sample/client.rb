@@ -7,23 +7,25 @@ puts "websocket-client-simple v#{WebSocket::Client::Simple::VERSION}"
 
 url = ARGV.shift || 'ws://localhost:8080'
 
-ws = WebSocket::Client::Simple.connect url
+ws = WebSocket::Client::Simple.connect url do |client|
 
-ws.on :message do |msg|
-  puts ">> #{msg.data}"
-end
+  client.on :message do |msg|
+    puts ">> #{msg.data}"
+  end
 
-ws.on :open do
-  puts "-- websocket open (#{ws.url})"
-end
+  client.on :open do
+    puts "-- websocket open (#{client.url})"
+  end
 
-ws.on :close do |e|
-  puts "-- websocket close (#{e.inspect})"
-  exit 1
-end
+  client.on :close do |e|
+    puts "-- websocket close (#{e.inspect})"
+    exit 1
+  end
 
-ws.on :error do |e|
-  puts "-- error (#{e.inspect})"
+  client.on :error do |e|
+    puts "-- error (#{e.inspect})"
+  end
+
 end
 
 loop do
