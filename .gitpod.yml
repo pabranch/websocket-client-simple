@@ -1,0 +1,13 @@
+# List the start up tasks. Learn more https://www.gitpod.io/docs/config-start-tasks/
+tasks:
+  - before: set -o vi
+    init: |
+      gem install bundler:1.11.2
+      bundle install
+  - name: Echo Server
+    command: echo "-- echo server"
+    openMode: split-right
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 8080
